@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+from shangyin import storage
+
+# Init database if needed
+if not storage.initialized():
+    storage.initialize()
+
+# Close database connection
+storage.close()

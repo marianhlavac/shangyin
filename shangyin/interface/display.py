@@ -1,4 +1,7 @@
 import os
+import RPi.GPIO as GPIO
+from charlcd import direct as lcd
+from charlcd.drivers.gpio import Gpio
 
 def truncated(line, width, offset=0, center=False):
     if len(line) < width:
@@ -8,13 +11,15 @@ def truncated(line, width, offset=0, center=False):
         return line[offset:offset+width]
 
 class Display:
-    def __init__(self, driver, disp_width = 16, disp_lines = 2, view_offset = 5):
+    def __init__(self, disp_width = 16, disp_lines = 2, view_offset = 5):
         self.width = disp_width
         self.lines = disp_lines
         self.view_offset = view_offset
         self.messages = [''] * disp_lines
         self.positions = [-view_offset] * disp_lines
-        self.driver = driver
+        self.lcd = lcd.CharLCD(16, 2, Gpio())
+
+        GPIO.setmode(GPIO.BCM)
 
     def set(self, linenum, message):
         self.messages[linenum] = message
@@ -31,7 +36,7 @@ class Display:
             if self.positions[i] > len(self.messages[i]):
                 self.positions[i] = -self.view_offset
 
-            if self.driver == None:
-                print(truncated(
-                    self.messages[i], self.width, self.positions[i], True
-                ))
+            line = truncated(self.messages[i], self.width, self.positions[i], True)
+
+            self.lcd.set_xy(0, i)
+            self.lcd.write(line)

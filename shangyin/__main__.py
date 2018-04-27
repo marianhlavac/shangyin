@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
 from shangyin import logger, storage
 from shangyin.interface import display, rfid
+from shangyin.web import stats
 
 # Init database if needed
 if not storage.initialized():
@@ -29,7 +29,6 @@ while True:
     display.update()
     display.draw()
     display.debug_in_console()
-
 
 # Close database connection
 storage.close()

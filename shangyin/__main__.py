@@ -1,34 +1,19 @@
-from shangyin import logger, storage
 from shangyin.interface import display, rfid
-from shangyin.web import stats
+import time
 
 # Init database if needed
-if not storage.initialized():
-    storage.initialize()
+# if not storage.initialized():
+#     storage.initialize()
 
-disp_state = 0
-display.update()
-display.change('SHANGYIN','v1.0-alpha')
-display.draw()
-display.debug_in_console()
-display.change('- Ready. -', 'Hi. Tap your card to log your coffee.')
+# Init LCD display
+lcd = display.Display(None)
+
+lcd.set(0, 'shangyin v0.1 T')
+lcd.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
 
 while True:
-    cmd = input('')
+    if rfid.card_present():
+        lcd.set(1, 'Card is present.')
 
-    # if rfid.card_present():
-    if cmd == 'card':
-        print('card is present')
-        logger.log_coffee(storage)
-        disp_state = 1
-        display.change('Coffee logged.', 'Log milk or cancel with buttons. Tap another card to log another coffee.')
-
-    if cmd == 'q':
-        break
-
-    display.update()
-    display.draw()
-    display.debug_in_console()
-
-# Close database connection
-storage.close()
+    lcd.update()
+    time.sleep(0.25)

@@ -1,35 +1,37 @@
 import os
 
-disp_w = 16
-
-status = ''
-message = ''
-message_view = -3
-
-def line(line, offset = 0):
-    if len(line) < disp_w:
-        return line.center(disp_w, ' ')
+def truncated(line, width, offset=0, center=False):
+    if len(line) < width:
+        return line.center(width, ' ') if center else line
     else:
-        return line[offset:offset+disp_w]
+        offset = 0 if offset < 0 else offset
+        return line[offset:offset+width]
 
-def change(new_status, new_message):
-    global status, message, message_view
-    status = new_status
-    message = new_message
-    message_view = -3
+class Display:
+    def __init__(self, driver, disp_width = 16, disp_lines = 2, view_offset = 5):
+        self.width = disp_width
+        self.lines = disp_lines
+        self.view_offset = view_offset
+        self.messages = [''] * disp_lines
+        self.positions = [-view_offset] * disp_lines
+        self.driver = driver
 
-def update():
-    global message_view
-    message_view += 1
-    if message_view > len(message) + 3:
-        message_view = -3
+    def set(self, linenum, message):
+        self.messages[linenum] = message
+        self.positions[linenum] = -self.view_offset
 
-def draw():
-    #TODO: Draw to display
-    pass
+    def update(self):
+        os.system('clear')
 
-def debug_in_console():
-    os.system('clear')
-    print(line(status))
-    print(line(message, 0 if message_view < 0 else message_view))
+        for i in range(self.lines):
+            # Increment view position
+            self.positions[i] += 1
 
+            # Check for view position overflow
+            if self.positions[i] > len(self.messages[i]):
+                self.positions[i] = -self.view_offset
+
+            if self.driver == None:
+                print(truncated(
+                    self.messages[i], self.width, self.positions[i], True
+                ))

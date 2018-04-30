@@ -16,8 +16,7 @@ disp = display.Display(None)
 
 disp.set(0, 'shangyin v0.1 T')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
-
-db.close()
+disp.update()
 
 while True:
     # Wait for user's card

@@ -107,3 +107,7 @@ ENV/
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# Ignore database
+
+shangyin/db.sqlite3

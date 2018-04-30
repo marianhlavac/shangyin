@@ -12,7 +12,7 @@ if storage.need_setup(db_cur):
     storage.setup(db_cur)
 
 # Init LCD display
-disp = display.Display(None)
+disp = display.Display()
 
 disp.set(0, 'shangyin v0.1 T')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')

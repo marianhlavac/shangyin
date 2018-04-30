@@ -1,7 +1,7 @@
 from pirc522 import RFID
 
 def init():
-    return RFID(pin_irq=8, pin_rst=7)
+    return RFID(pin_irq=8, pin_rst=10)
 
 def wait_for_card(rdr):
     rdr.wait_for_tag()

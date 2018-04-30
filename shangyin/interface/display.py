@@ -17,17 +17,15 @@ class Display:
         self.view_offset = view_offset
         self.messages = [''] * disp_lines
         self.positions = [-view_offset] * disp_lines
-        self.lcd = lcd.CharLCD(16, 2, Gpio())
 
-        GPIO.setmode(GPIO.BCM)
+        self.lcd = lcd.CharLCD(16, 2, Gpio())
+        self.lcd.init()
 
     def set(self, linenum, message):
         self.messages[linenum] = message
         self.positions[linenum] = -self.view_offset
 
     def update(self):
-        os.system('clear')
-
         for i in range(self.lines):
             # Increment view position
             self.positions[i] += 1

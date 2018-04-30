@@ -18,7 +18,18 @@ class Display:
         self.messages = [''] * disp_lines
         self.positions = [-view_offset] * disp_lines
 
-        self.lcd = lcd.CharLCD(16, 2, Gpio())
+        g = Gpio()
+        g.pins = {
+            'RS': 22,
+            'E': 18,
+            'E2': None,
+            'DB4': 15,
+            'DB5': 16,
+            'DB6': 13,
+            'DB7': 11
+        }
+
+        self.lcd = lcd.CharLCD(16, 2, g)
         self.lcd.init()
 
     def set(self, linenum, message):

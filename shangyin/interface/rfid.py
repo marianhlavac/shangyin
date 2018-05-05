@@ -5,7 +5,7 @@ def init():
     return RFID(pin_irq=8, pin_rst=10)
 
 def hash_card(uid):
-    return hashlib.sha256(''.join(uid)).hexdigest()
+    return hashlib.sha256(''.join(str(e) for e in uid)).hexdigest()
 
 def read_card(rdr):
     rdr.wait_for_tag()

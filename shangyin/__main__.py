@@ -19,20 +19,22 @@ disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
 disp.update()
 
 while True:
-    # Wait for user's card
-    cuid = rfid.wait_for_card(reader)
+    # When card is tapped
+    if reader.irq.is_set:
+        cuid = rfid.wait_for_card(reader)
 
-    # Check if it's a valid card
-    if not cuid == None:
-        disp.set(1, 'Card: {}'.format(cuid))
+        # Check if it's a valid card
+        if not cuid == None:
+            disp.set(1, 'Card: {}'.format(cuid))
 
-    # Log a coffee for this card
-    storage.log_coffee_to_uid(db_cur, cuid)
+        # Log a coffee for this card
+        # storage.log_coffee_to_uid(db_cur, cuid)
 
-    # Update the display
-    disp.update()
-    time.sleep(2)
+        # Update the display
+        disp.update()
+        time.sleep(2)
 
     # Back to standby display
     disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
     disp.update()
+    time.sleep(0.5)

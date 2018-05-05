@@ -1,12 +1,13 @@
 import RPi.GPIO as GPIO
+import time
 
 SPKR_PIN = 12
 
 def init():
     GPIO.setup(SPKR_PIN, GPIO.OUT)
 
-def beep(time, tone):
-    pwm = GPIO.PWM(SPKR_PIN, time)
+def beep(duration, tone):
+    pwm = GPIO.PWM(SPKR_PIN, tone)
     pwm.start(50)
-    time.sleep(time)
+    time.sleep(duration)
     pwm.stop()

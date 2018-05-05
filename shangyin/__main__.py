@@ -25,18 +25,18 @@ speaker.beep(0.5, 200)
 while True:
     # When card is tapped
     if reader.irq.is_set:
-        cuid = rfid.wait_for_card(reader)
+        card = rfid.read_card(reader)
 
-        # Check if it's a valid card
-        if not cuid == None:
-            disp.set(1, 'Card: {}'.format(cuid))
-            print('Card with CUID {} tapped.'.format(cuid))
+        # Display a debug message
+        disp.set(1, 'Card: {}'.format(card))
+        print('Card with hash {} tapped.'.format(card))
+        
+        # Sound feedback
+        speaker.beep(0.1, 250)
+        speaker.beep(0.1, 500)
 
         # Log a coffee for this card
         # storage.log_coffee_to_uid(db_cur, cuid)
-
-        speaker.beep(0.1, 250)
-        speaker.beep(0.1, 500)
 
         # Update the display
         disp.update()

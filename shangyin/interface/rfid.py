@@ -1,16 +1,19 @@
 from pirc522 import RFID
+import hashlib
 
 def init():
     return RFID(pin_irq=8, pin_rst=10)
 
-def wait_for_card(rdr):
+def hash_card(uid):
+    return hashlib.sha256(''.join(uid)).hexdigest()
+
+def read_card(rdr):
     rdr.wait_for_tag()
     (error, _tag_type) = rdr.request()
 
     if not error:
         (error, uid) = rdr.anticoll()
 
+    # Check if it's a valid card
     if not error:
-        return uid
-    else:
-        return None
+        return hash_card(uid)

@@ -1,4 +1,4 @@
-from shangyin.interface import display, rfid
+from shangyin.interface import display, rfid, speaker
 import shangyin.storage as storage
 import time
 
@@ -14,9 +14,13 @@ if storage.need_setup(db_cur):
 # Init LCD display
 disp = display.Display()
 
+# Init speaker
+speaker.init()
+
 disp.set(0, 'shangyin v0.1 T')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
 disp.update()
+speaker.beep(0.1, 550)
 
 while True:
     # When card is tapped
@@ -26,6 +30,7 @@ while True:
         # Check if it's a valid card
         if not cuid == None:
             disp.set(1, 'Card: {}'.format(cuid))
+            print('Card with CUID {} tapped.'.format(cuid))
 
         # Log a coffee for this card
         # storage.log_coffee_to_uid(db_cur, cuid)

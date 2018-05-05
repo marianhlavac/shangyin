@@ -20,7 +20,7 @@ speaker.init()
 disp.set(0, 'shangyin v0.1 T')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
 disp.update()
-speaker.beep(0.1, 550)
+speaker.beep(0.5, 550)
 
 while True:
     # When card is tapped
@@ -34,6 +34,9 @@ while True:
 
         # Log a coffee for this card
         # storage.log_coffee_to_uid(db_cur, cuid)
+
+        speaker.beep(0.7, 550)
+        speaker.beep(0.7, 750)
 
         # Update the display
         disp.update()

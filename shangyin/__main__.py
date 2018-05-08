@@ -18,7 +18,8 @@ disp = display.Display()
 speaker.init()
 
 # Periodically update display
-disp_upd = display.DisplayUpdater(disp)
+disp_upd = display.DisplayUpdater()
+disp_upd.set_disp(disp)
 disp_upd.start()
 
 disp.set(0, 'shangyin v0.1-a')

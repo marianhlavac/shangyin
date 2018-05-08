@@ -58,7 +58,7 @@ class Display:
         self.poslock.release()
 
 class DisplayUpdater(threading.Thread):
-    def __init__(self, disp):
+    def set_disp(self, disp):
         self.disp = disp
 
     def run(self):

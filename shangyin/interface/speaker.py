@@ -8,6 +8,6 @@ def init():
 
 def beep(duration, tone):
     pwm = GPIO.PWM(SPKR_PIN, tone)
-    pwm.start(50)
+    pwm.start(40)
     time.sleep(duration)
     pwm.stop()

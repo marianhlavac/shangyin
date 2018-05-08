@@ -17,10 +17,10 @@ disp = display.Display()
 # Init speaker
 speaker.init()
 
-disp.set(0, 'shangyin v0.1 T')
+disp.set(0, 'shangyin v0.1-al')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
 disp.update()
-speaker.beep(0.5, 200)
+speaker.beep(0.2, 250)
 
 while True:
     # When card is tapped
@@ -30,13 +30,13 @@ while True:
         # Display a debug message
         disp.set(1, 'Card: {}'.format(card))
         print('Card with hash {} tapped.'.format(card))
-        
-        # Sound feedback
-        speaker.beep(0.1, 250)
-        speaker.beep(0.1, 500)
 
         # Log a coffee for this card
-        # storage.log_coffee_to_uid(db_cur, cuid)
+        storage.log_coffee_to_uid(db_cur, card)
+        
+        # Sound feedback
+        speaker.beep(0.1, 400)
+        speaker.beep(0.1, 700)
 
         # Update the display
         disp.update()

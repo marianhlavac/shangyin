@@ -42,7 +42,7 @@ while True:
         disp.update()
         time.sleep(2)
 
-    # Back to standby display
-    disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
+        # Back to standby display
+        disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
     disp.update()
     time.sleep(0.5)

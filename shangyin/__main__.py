@@ -17,32 +17,32 @@ disp = display.Display()
 # Init speaker
 speaker.init()
 
-disp.set(0, 'shangyin v0.1-al')
+# Periodically update display
+disp_upd = display.DisplayUpdater(disp)
+disp_upd.start()
+
+disp.set(0, 'shangyin v0.1-a')
 disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
-disp.update()
 speaker.beep(0.2, 250)
 
 while True:
-    # When card is tapped
-    if reader.irq.is_set:
-        card = rfid.read_card(reader)
+    # Read card
+    card = rfid.read_card(reader)
 
-        # Display a debug message
-        disp.set(1, 'Card: {}'.format(card))
-        print('Card with hash {} tapped.'.format(card))
+    # Display a debug message
+    disp.set(1, 'Card: {}'.format(card))
+    print('Card with hash {} tapped.'.format(card))
 
-        # Log a coffee for this card
-        storage.log_coffee_to_uid(db_cur, card)
-        
-        # Sound feedback
-        speaker.beep(0.1, 400)
-        speaker.beep(0.1, 700)
+    # Log a coffee for this card
+    storage.log_coffee_to_uid(db_cur, card)
+    
+    # Sound feedback
+    speaker.beep(0.1, 400)
+    speaker.beep(0.1, 700)
 
-        # Update the display
-        disp.update()
-        time.sleep(2)
+    # Hold the message for a while
+    time.sleep(2)
 
-        # Back to standby display
-        disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
-    disp.update()
-    time.sleep(0.5)
+    # Back to standby display
+    disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
+    

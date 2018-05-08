@@ -1,5 +1,7 @@
 import os
 import RPi.GPIO as GPIO
+import threading
+import time
 from charlcd import direct as lcd
 from charlcd.drivers.gpio import Gpio
 
@@ -17,6 +19,7 @@ class Display:
         self.view_offset = view_offset
         self.messages = [''] * disp_lines
         self.positions = [-view_offset] * disp_lines
+        self.poslock = threading.Lock()
 
         g = Gpio()
         g.pins = {
@@ -34,9 +37,12 @@ class Display:
 
     def set(self, linenum, message):
         self.messages[linenum] = message
+        self.poslock.acquire()
         self.positions[linenum] = -self.view_offset
+        self.poslock.release()
 
     def update(self):
+        self.poslock.acquire()
         for i in range(self.lines):
             # Increment view position
             self.positions[i] += 1
@@ -49,3 +55,13 @@ class Display:
 
             self.lcd.set_xy(0, i)
             self.lcd.write(line)
+        self.poslock.release()
+
+class DisplayUpdater(threading.Thread):
+    def __init__(self, disp):
+        self.disp = disp
+
+    def run(self):
+        while True:
+            self.disp.update()
+            time.sleep(0.5)

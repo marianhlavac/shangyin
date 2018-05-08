@@ -54,7 +54,7 @@ class Display:
             line = truncated(self.messages[i], self.width, self.positions[i], True)
 
             self.lcd.set_xy(0, i)
-            self.lcd.write(line)
+            self.lcd.write(line.ljust(self.width))
         self.poslock.release()
 
 class DisplayUpdater(threading.Thread):

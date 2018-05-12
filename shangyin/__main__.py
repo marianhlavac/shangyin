@@ -3,13 +3,11 @@ import shangyin.storage as storage
 import time
 
 # Connect database and RFID reader
-db = storage.connect()
-db_cur = db.cursor()
+db = storage.Storage()
 reader = rfid.init()
 
 # Init database if needed
-if storage.need_setup(db_cur):
-    storage.setup(db_cur)
+db.setup()
 
 # Init LCD display
 disp = display.Display()
@@ -35,7 +33,7 @@ while True:
     print('Card with hash {} tapped.'.format(card))
 
     # Log a coffee for this card
-    storage.log_coffee_to_uid(db_cur, card)
+    # ...
     
     # Sound feedback
     speaker.beep(0.1, 400)

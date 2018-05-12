@@ -3,29 +3,44 @@ import os
 
 DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
 
-def connect(path=DEFAULT_PATH):
-    return sqlite3.connect(path) 
+class Storage:
+    def __init__(self, path=DEFAULT_PATH):
+        self.db = sqlite3.connect(path) 
+        self.cur = self.db.cursor()
 
-def need_setup(cur):
-    cur.execute('select name from sqlite_master where type=\'table\'') # TODO: This is not enough
-    return len(cur.fetchall()) <= 0
+    def __del__(self):
+        self.db.close()
 
-def setup(cur):
-    with open('schema.sql') as schema:
-        cur.executescript(schema.read())
+    def q(self, query):
+        self.cur.execute(query)
 
-def uid_exists(cur, uid):
-    cur.execute('''
-        select * from users where id=?
-    ''', uid)
-    return len(cur.fetchall()) > 0
+    def need_setup(self):
+        self.q('select name from sqlite_master where type="table"') # TODO: This is not enough
+        return len(self.cur.fetchall()) <= 0
 
-def create_uid(cur, uid):
-    cur.execute('''
-        insert into users values (?, ?, ?)
-    ''', (uid, 'Unnammed', 'Untitled'))
+    def setup(self):
+        if self.need_setup():
+            with open('schema.sql') as schema:
+                self.cur.executescript(schema.read())
 
-def log_coffee_to_uid(cur, uid):
-    cur.execute('''
-        insert into users values (NOW(), ?, ?, ?)
-    ''', (uid, 0, 'Untitled'))
+    def commit(self):
+        self.db.commit()
+
+    def rows(self):
+        return self.cur.fetchall()
+
+    def add_user(self, email, fullname, department, password):
+        self.q(
+            'INSERT INTO user (email, fullname, department, password) VALUES ("{}", "{}", "{}", "{}")'.format(
+                email, fullname, department, password
+            ))
+        self.commit()
+
+    def get_users(self):
+        self.q('SELECT * FROM user')
+        return self.rows()
+
+
+    def add_coffee(self, user, milk = 0):
+        pass
+    

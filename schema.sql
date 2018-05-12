@@ -1,12 +1,22 @@
-CREATE TABLE coffees (
-	logged_at datetime,
-	user_id integer,
-	type integer,
-	division integer
+CREATE TABLE user ( 
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL,
+  fullname TEXT,
+  department TEXT,
+  password TEXT
 );
-
-CREATE TABLE users (
-	id integer PRIMARY KEY AUTOINCREMENT,
-    name text,
-    division text
+  
+CREATE TABLE card ( 
+  id TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+  
+CREATE TABLE coffee ( 
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  logged DATETIME,
+  department TEXT,
+  milk BOOL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );

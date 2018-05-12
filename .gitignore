@@ -111,3 +111,4 @@ ENV/
 # Ignore database
 
 shangyin/db.sqlite3
+testdb.sqlite3

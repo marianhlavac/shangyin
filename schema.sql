@@ -8,15 +8,14 @@ CREATE TABLE user (
   
 CREATE TABLE card ( 
   id TEXT PRIMARY KEY,
-  user_id INTEGER NOT NULL,
+  user_id INTEGER NULL,
   FOREIGN KEY (user_id) REFERENCES user(id)
 );
   
 CREATE TABLE coffee ( 
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id INTEGER NOT NULL,
+  card_id INTEGER NOT NULL,
   logged DATETIME,
-  department TEXT,
-  milk BOOL,
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  milk BOOL NOT NULL,
+  FOREIGN KEY (card_id) REFERENCES card(id)
 );

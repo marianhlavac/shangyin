@@ -1,10 +1,16 @@
 from shangyin.interface import display, rfid, speaker
 import shangyin.storage as storage
+import shangyin.server as server
 import time
 
 # Connect database and RFID reader
 db = storage.Storage()
 reader = rfid.init()
+
+# Start up the statistics server
+srun = server.ServerRunner()
+srun.assign_db(db)
+srun.start()
 
 # Init database if needed
 db.setup()
@@ -32,8 +38,14 @@ while True:
     disp.set(1, 'Card: {}'.format(card))
     print('Card with hash {} tapped.'.format(card))
 
+    # Sync the card with db
+    cardrow = db.get_by_id('card', card, 'id, user_id')
+
+    if cardrow == None:
+        db.create_card(card)
+
     # Log a coffee for this card
-    # ...
+    db.create_coffee(card)
     
     # Sound feedback
     speaker.beep(0.1, 400)

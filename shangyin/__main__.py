@@ -37,7 +37,8 @@ while True:
 
     # Tap feedback
     speaker.beep(0.1, 200)
-    disp.set(0, 'Card tapped...')
+    disp.set(0, 'Card scanned...')
+    disp.set(1, 'You can move your card away.')
 
     # Sync the card with db
     cardrow = db.get_by_id('card', card, 'id, user_id')
@@ -67,5 +68,5 @@ while True:
 
     # Back to standby display
     disp.set(0, 'Ready.')
-    disp.set(1, 'Hello! The machine is ready for some work. Tap your card now.')
+    disp.set(1, 'Hey, tap your card to log your coffee.')
     

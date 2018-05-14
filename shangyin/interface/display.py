@@ -13,7 +13,7 @@ def truncated(line, width, offset=0, center=False):
         return line[offset:offset+width]
 
 class Display:
-    def __init__(self, disp_width = 16, disp_lines = 2, view_offset = 5):
+    def __init__(self, disp_width = 16, disp_lines = 2, view_offset = 2):
         self.width = disp_width
         self.lines = disp_lines
         self.view_offset = view_offset

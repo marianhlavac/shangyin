@@ -20,6 +20,7 @@ class Display:
         self.messages = [''] * disp_lines
         self.positions = [-view_offset] * disp_lines
         self.poslock = threading.Lock()
+        self.written = [False] * disp_lines
 
         g = Gpio()
         g.pins = {
@@ -40,6 +41,7 @@ class Display:
         self.poslock.acquire()
         self.positions[linenum] = -self.view_offset
         self.poslock.release()
+        self.written = [False] * self.lines
 
     def update(self):
         self.poslock.acquire()
@@ -53,8 +55,11 @@ class Display:
 
             line = truncated(self.messages[i], self.width, self.positions[i], True)
 
-            self.lcd.set_xy(0, i)
-            self.lcd.write(line.ljust(self.width))
+            if (not self.written[i]) or len(self.messages[i]) > self.width:
+                self.lcd.set_xy(0, i)
+                self.lcd.write(line.ljust(self.width))
+                self.written[i] = True
+            
         self.poslock.release()
 
 class DisplayUpdater(threading.Thread):
@@ -64,4 +69,4 @@ class DisplayUpdater(threading.Thread):
     def run(self):
         while True:
             self.disp.update()
-            time.sleep(0.2)
+            time.sleep(0.1)

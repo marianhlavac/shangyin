@@ -37,8 +37,8 @@ while True:
 
     # Tap feedback
     speaker.beep(0.1, 200)
-    disp.set(0, 'Card scanned...')
-    disp.set(1, 'You can move your card away.')
+    disp.set(0, 'Card scanned')
+    disp.set(1, 'Saving log...')
 
     # Sync the card with db
     cardrow = db.get_by_id('card', card, 'id, user_id')

@@ -64,4 +64,4 @@ class DisplayUpdater(threading.Thread):
     def run(self):
         while True:
             self.disp.update()
-            time.sleep(0.5)
+            time.sleep(0.2)

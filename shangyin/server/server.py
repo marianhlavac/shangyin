@@ -13,11 +13,10 @@ class ServerRunner(threading.Thread):
             global dbref
 
             data = dbref.select('*', 'coffee')
-            logs = map(lambda x: 'ID {}, CARD {}, TIME {}'.format(x[0], x[1], x[2]), data)
 
-            return render_template('index.html', logs=logs)
+            return render_template('index.html', logs=data)
 
-        app.run(host='0.0.0.0', port=8000, debug=True, use_reloader=False)
+        app.run(host='0.0.0.0', port=8000)
 
     def assign_db(self, db):
         global dbref

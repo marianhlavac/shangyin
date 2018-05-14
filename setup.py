@@ -7,5 +7,5 @@ setup(
     author='Marian Hlavac',
     author_email='hlavac95@gmail.com',
     url='https://github.com/mmajko/shangyin',
-    packages=['shangyin', 'shangyin.interface'],
+    packages=['shangyin', 'shangyin.interface', 'shangyin.server'],
 )

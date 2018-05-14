@@ -2,3 +2,4 @@ RPi.GPIO == 0.6.3
 spidev == 3.2
 charlcd == 0.5.1
 pi-rc522 == 2.2.1
+Flask == 1.0.2

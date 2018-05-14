@@ -1,6 +1,6 @@
 from shangyin.interface import display, rfid, speaker
+from shangyin.server import server
 import shangyin.storage as storage
-import shangyin.server as server
 import time
 
 # Connect database and RFID reader

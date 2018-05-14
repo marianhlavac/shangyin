@@ -1,5 +1,5 @@
 import shangyin.storage as storage
-import shangyin.server as server
+from shangyin.server import server
 
 # Connect database
 db = storage.Storage()

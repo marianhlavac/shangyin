@@ -35,15 +35,9 @@ while True:
     # Read card
     card = rfid.read_card(reader)
 
-    # Display a success message
-    messages = [
-        'Got your coffee written down.',
-        'There are now records of your coffee.',
-        'Enjoy your coffee.',
-        'Ok.'
-        ]
-    disp.set(0, 'Card tapped.')
-    disp.set(1, messages[random.randint(0, 4)])
+    # Tap feedback
+    speaker.beep(0.1, 200)
+    disp.set(0, 'Card tapped...')
 
     # Sync the card with db
     cardrow = db.get_by_id('card', card, 'id, user_id')
@@ -57,6 +51,16 @@ while True:
     # Sound feedback
     speaker.beep(0.1, 400)
     speaker.beep(0.1, 700)
+
+    # Display a success message
+    messages = [
+        'Got your coffee written down.',
+        'There are now records of your coffee.',
+        'Enjoy your coffee.',
+        'Ok.'
+        ]
+    disp.set(0, 'Logged!')
+    disp.set(1, messages[random.randint(0, 4)])
 
     # Hold the message for a while
     time.sleep(4)

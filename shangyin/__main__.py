@@ -8,6 +8,7 @@ import random
 # Connect database and RFID reader
 db = storage.Storage()
 reader = rfid.init()
+ip = ''
 
 # Start up the statistics server
 srun = server.ServerRunner()
@@ -28,10 +29,14 @@ disp_upd = display.DisplayUpdater()
 disp_upd.set_disp(disp)
 disp_upd.start()
 
-# Display machine IP address
-ip = check_output(['hostname', '--all-ip-addresses'])
+# Display machine IP address and wait for network
 disp.set(0, 'shangyin v1.0')
-disp.set(1, str(ip))
+speaker.play_wait()
+while len(ip) < 4:
+    ip = check_output(['hostname', '--all-ip-addresses']).decode('utf-8')
+    disp.set(1, 'Waiting for network...')
+
+disp.set(1, ip)
 speaker.play_intro()
 time.sleep(5)
 

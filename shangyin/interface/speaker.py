@@ -13,13 +13,13 @@ def beep(duration, tone):
     pwm.stop()
 
 def play_intro():
-    beep(0.1, 261)
-    beep(0.1, 329)
-    beep(0.1, 392)
+    beep(0.05, 261)
+    beep(0.05, 329)
+    beep(0.05, 392)
     beep(0.1, 523)
 
 def play_wait():
-    beep(0.1, 261)
+    beep(0.05, 261)
 
 def play_success():
-    beep(0.2, 523)
+    beep(0.1, 523)

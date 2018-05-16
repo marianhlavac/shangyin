@@ -14,11 +14,8 @@ def beep(duration, tone):
 
 def play_intro():
     beep(0.1, 261)
-    time.sleep(0.1)
     beep(0.1, 329)
-    time.sleep(0.1)
     beep(0.1, 392)
-    time.sleep(0.1)
     beep(0.1, 523)
 
 def play_wait():

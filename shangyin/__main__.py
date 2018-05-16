@@ -33,10 +33,11 @@ ip = check_output(['hostname', '--all-ip-addresses'])
 disp.set(0, 'shangyin v1.0')
 disp.set(1, str(ip))
 speaker.play_intro()
+time.sleep(5)
 
+# Display default message
 disp.set(0, 'Ready.')
 disp.set(1, 'Hey, tap your card to log your coffee.')
-
 
 while True:
     # Read card

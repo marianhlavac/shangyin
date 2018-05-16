@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>shangyin</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <span class="icon" style="font-size: 128px;position:absolute;top:0.1em;opacity:0.1;">
+                            <i class="fas fa-coffee"></i>
+                        </span>
+                        <h1 class="title">
+                            上瘾
+                        </h1>
+                        <p class="subtitle">
+                            {% block title %}{% endblock %}
+                        </p>
+                    </div>
+                    <div class="column">
+                        <nav class="navbar" role="navigation" aria-label="navigation">
+                            <div class="navbar-end">
+                                <a class="navbar-item" href="/">Overview</a>
+                                <a class="navbar-item" href="/all">All logs</a>
+                                <a class="navbar-item">Pair your card</a>
+                                <a class="navbar-item">FAQ</a>
+                                <a class="navbar-item">Login</a>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <main>{% block content %}{% endblock %}</main>
+            </div>
+        </section>      
+    </body>
+</html>

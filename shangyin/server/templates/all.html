@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}All logs{% endblock %}
+{% block content %}
+<meta http-equiv="refresh" content="10"> 
+<table class="table" width="100%">
+    <thead>
+        <tr>
+            <th>Log ID</th>
+            <th>Card ID</th>
+            <th>User</th>
+            <th>Department</th>
+            <th>Logged at</th>
+            <th>With milk?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+            <tr>
+                <tr>
+                    <td>{{ log[0] }}</td>
+                    <td>{{ log[1][:8] }}</td>
+                    <td>{{ log[5] }}</td>
+                    <td>{{ log[6] }}</td>
+                    <td>{{ log[2] }}</td>
+                    <td>{{ 'Yes' if log[3] else 'No' }}</td>
+                </tr>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,102 +1,69 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>shangyin</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
-        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="refresh" content="10"> <!-- temporary solution -->
-    </head>
-    <body>
-        <section class="section">
-            <div class="container">
-                <div class="columns">
-                    <div class="column">
-                        <span class="icon" style="font-size: 128px;position:absolute;top:0.1em;opacity:0.1;">
-                            <i class="fas fa-coffee"></i>
-                        </span>
-                        <h1 class="title">
-                            上瘾
-                        </h1>
-                        <p class="subtitle">
-                            Overview
-                        </p>
-                    </div>
-                    <div class="column">
-                        <nav class="navbar" role="navigation" aria-label="navigation">
-                            <div class="navbar-end">
-                                <a class="navbar-item">Overview</a>
-                                <a class="navbar-item">All logs</a>
-                                <a class="navbar-item">Pair your card</a>
-                                <a class="navbar-item">FAQ</a>
-                                <a class="navbar-item">Login</a>
-                            </div>
-                        </nav>
-                    </div>
+{% extends 'base.html' %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<div class="columns">
+    <div class="column">
+            <nav class="panel">
+                <p class="panel-heading">
+                    Statistics
+                </p>
+                <div class="panel-block">
+                    <canvas id="overview-chart"></canvas>
                 </div>
-                <div class="columns">
-                        <div class="column">
-                                <nav class="panel">
-                                    <p class="panel-heading">
-                                        Statistics
-                                    </p>
-                                    <div class="panel-block">
-                                        <canvas id="overview-chart"></canvas>
-                                    </div>
-                                </nav>
-                            </div>
-                    <div class="column">
-                        <nav class="panel">
-                            <p class="panel-heading">
-                                Most recent coffee logs
-                            </p>
-                            <div class="panel-block">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Log ID</th>
-                                            <th>Card ID</th>
-                                            <th>Logged at</th>
-                                            <th>With milk?</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for log in logs %}
-                                            <tr>
-                                                {% for field in log %}
-                                                <td>{{ field }}</td>
-                                                {% endfor %}
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </section>  
-        <script>
-            var ctx = document.getElementById("overview-chart").getContext('2d')
-            var myChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    datasets: [{
-                        data: [10, 20, 30],
-                        backgroundColor: [ '#247BA0', '#70C1B3', '#FF1654', '#B2DBBF', '#F3FFBD'],
-                    }],
-                    labels: [
-                        'ICT FIT',
-                        'Datalab',
-                        'Neznámý',
-                    ],
-                },
-                options: {
-                    'animation.rotate': true,
-                },
-            })
-        </script>      
-    </body>
-</html>
+            </nav>
+        </div>
+<div class="column">
+    <nav class="panel">
+        <p class="panel-heading">
+            Most recent coffee logs
+        </p>
+        <div class="panel-block">
+            <table class="table" width="100%">
+                <thead>
+                    <tr>
+                        <th>Log ID</th>
+                        <th>User</th>
+                        <th>Logged at</th>
+                        <th>With milk?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in recent %}
+                        <tr>
+                            <td>{{ log[0] }}</td>
+                            <td>{{ log[5] }}</td>
+                            <td>{{ log[2] }}</td>
+                            <td>{{ 'Yes' if log[3] else 'No' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </nav>
+</div>
+</div>
+<script>
+    var ctx = document.getElementById("overview-chart").getContext('2d')
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    {% for row in counts %}
+                        {{ row[1] }},
+                    {% endfor %}
+                ],
+                backgroundColor: [ '#247BA0', '#70C1B3', '#FF1654', '#B2DBBF', '#F3FFBD'],
+            }],
+            labels: [
+                {% for row in counts %}
+                    '{{ row[0] }}',
+                {% endfor %}
+            ],
+        },
+        options: {
+            'animation.rotate': true,
+        },
+    })
+</script>  
+{% endblock %}

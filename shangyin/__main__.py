@@ -61,7 +61,7 @@ while True:
         'Ok.'
         ]
     disp.set(0, 'Logged!')
-    disp.set(1, messages[random.randint(0, 4)])
+    disp.set(1, messages[random.randint(0, 3)])
 
     # Hold the message for a while
     time.sleep(4)

@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
+DEFAULT_PATH = os.path.join(os.getcwd(), 'db.sqlite3')
 
 def quote(string, quotes = '"'):
     return '{}{}{}'.format(quotes, string, quotes)

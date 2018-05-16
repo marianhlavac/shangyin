@@ -22,7 +22,4 @@ def play_wait():
     beep(0.1, 261)
 
 def play_success():
-    time.sleep(0.1)
-    beep(0.1, 392)
-    time.sleep(0.1)
     beep(0.2, 523)

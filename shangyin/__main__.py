@@ -31,7 +31,7 @@ disp_upd.start()
 # Display machine IP address
 ip = check_output(['hostname', '--all-ip-addresses'])
 disp.set(0, 'shangyin v1.0')
-disp.set(1, ip)
+disp.set(1, str(ip))
 speaker.play_intro()
 
 disp.set(0, 'Ready.')

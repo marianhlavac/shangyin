@@ -1,6 +1,7 @@
 from shangyin.interface import display, rfid, speaker
 from shangyin.server import server
 import shangyin.storage as storage
+from subprocess import check_output
 import time
 import random
 
@@ -27,16 +28,22 @@ disp_upd = display.DisplayUpdater()
 disp_upd.set_disp(disp)
 disp_upd.start()
 
+# Display machine IP address
+ip = check_output(['hostname', '--all-ip-addresses'])
+disp.set(0, 'shangyin v1.0')
+disp.set(1, ip)
+speaker.play_intro()
+
 disp.set(0, 'Ready.')
 disp.set(1, 'Hey, tap your card to log your coffee.')
-speaker.beep(0.2, 250)
+
 
 while True:
     # Read card
     card = rfid.read_card(reader)
 
     # Tap feedback
-    speaker.beep(0.1, 200)
+    speaker.play_wait()
     disp.set(0, 'Card scanned')
     disp.set(1, 'Saving log...')
 
@@ -50,8 +57,7 @@ while True:
     db.create_coffee(card)
     
     # Sound feedback
-    speaker.beep(0.1, 400)
-    speaker.beep(0.1, 700)
+    speaker.play_success()
 
     # Display a success message
     messages = [

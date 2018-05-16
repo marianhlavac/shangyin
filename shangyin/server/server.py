@@ -3,7 +3,7 @@ import threading
 import time
 
 dbref = None
-cofcarduser_join = 'JOIN card on card_id=card.id JOIN user ON user_id=user.id'
+cofcarduser_join = 'JOIN card on card_id=card.id LEFT JOIN user ON user_id=user.id'
 
 class ServerRunner(threading.Thread):
     def run(self):

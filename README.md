@@ -1,11 +1,10 @@
 # 上瘾
 Coffee addiction tracker
 
-## About
+## Repository
 
-TODO: 
+A clone repository from GitHub
 
-## Requirements
+## Report and presentation
 
-- Rapsberry Pi 
-- ...
+Can be found as release https://gitlab.fit.cvut.cz/hlavam30/mi-iot-copy/tags/v1.0

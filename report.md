@@ -52,6 +52,14 @@ Bylo tak nutné sestavit SQL schéma pro databázi aplikace a pak napsat jednodu
 
 Implementace musela být vícevláknová. Samostatně bylo nutné obstarávat jádro aplikace, aktualizaci displeje (text se posouvá při delším textu) a spuštění webového serveru.
 
+## Schéma zapojení
+
+![](doc/wiring.png)
+
+![](doc/wiring-sch.png)
+
+Schéma zapojení lze nalézt ve vektorovém formátu ve složce `doc/`
+
 ## Problémy při implementaci
 
 U některých částí (podbalíčků) bylo nutné psát testy, jelikož jsem vyvíjel mimo RPi (RPi bylo v headless módu) a knihovny při spouštění pythonu lokálně hlásily chybu, jelikož periferie (displej a čtečka) nebyly k počítači připojeny, ani nebyly kompatibilní.
@@ -91,3 +99,13 @@ Semestrální práce splnila základní body zadání, nicméně by jistě zaslo
 Současná práce slouží jako dobrý základ pro dokončení projektu, a zároveň slouží jako rozšířený Proof of Concept celého projektu.
 
 Projekt má reálně použití i možnost reálného nasazení, tudíž bude přes prázdniny dokončen a do kanceláře ke kávovaru skutečně nasazen.
+
+## Zdroje
+
+- How to setup a Raspberry Pi RFID RC522 Chip https://pimylifeup.com/raspberry-pi-rfid-rc522/
+- RPi.GPIO 0.5.2a now has software PWM – How to use it http://raspi.tv/2013/rpi-gpio-0-5-2a-now-has-software-pwm-how-to-use-it
+- Python RC522 library https://github.com/ondryaso/pi-rc522
+- DB-API 2.0 interface for SQLite databases https://docs.python.org/2/library/sqlite3.html
+- CharLCD https://github.com/adafruit/Adafruit_Python_CharLCD
+- Flask http://flask.pocoo.org
+- Bulma Framework https://bulma.io
